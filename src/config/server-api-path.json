@@ -1,0 +1,8 @@
+{
+    "charts": {
+        "allChartData": {
+            "path": "api/v1/chart-pies",
+            "method": "GET"
+        }
+    }
+}

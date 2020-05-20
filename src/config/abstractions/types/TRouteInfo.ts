@@ -1,6 +1,6 @@
 import { ComponentClass } from 'react';
 
-interface TRouteInfo {
+type TRouteInfo = {
   name: string
   path: string
   exact: boolean

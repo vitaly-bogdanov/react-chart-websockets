@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useState, Fragment, ChangeEvent } from 'react';
+import React, { FunctionComponent, useState, Fragment, ChangeEvent, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import InputChartData from '../inputChartData/InputChartData';
+import { connect } from 'react-redux';
 
-const PieChart: FunctionComponent = () => {
+const PieChart: FunctionComponent = (props) => {
   let [chartData, setChartData] = useState([617594, 181045, 153060, 106519]);
   let [chartColor, setChartColor] = useState(['#fae500', '#CC342D', '#0C4B33', '#878fc2',]);
   let [chartLabel, setChartLabel] = useState(['JavaScript', 'Ruby', 'Python', 'PHP']);
@@ -16,9 +17,8 @@ const PieChart: FunctionComponent = () => {
       }
     ]
   };
-
+  
   let changeDataHandler = (event: ChangeEvent<HTMLInputElement>, label: string) => {
-    console.log(label);
     let valueIndex = chartLabel.indexOf(label);
     let newData = [...chartData];
     let value: number;
@@ -52,9 +52,14 @@ const PieChart: FunctionComponent = () => {
           })
         }
       </ul>
-      
     </Fragment>
   );
 }
 
-export default PieChart;
+const mapStateToProps = (state: any): any => {
+  return {
+    chartData: state.chartDataReducer.chartData
+  }
+};
+
+export default connect(mapStateToProps)(PieChart);

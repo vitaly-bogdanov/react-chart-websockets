@@ -1,8 +1,15 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import * as routes from './config/routes';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import chartPiesThunk from './redux/middlewares/chartPiesThunk';
 
-const App: FunctionComponent = () => {
+const App: FunctionComponent<{loadChartData(): void}> = props => {
+  useEffect(() => {
+    props.loadChartData();
+  }, []);
+
   return (
     <Switch>
       {
@@ -21,4 +28,8 @@ const App: FunctionComponent = () => {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  loadChartData: () => dispatch(chartPiesThunk())
+})
+
+export default connect(null, mapDispatchToProps)(App);
