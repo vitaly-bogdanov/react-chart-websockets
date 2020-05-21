@@ -1,34 +1,38 @@
-import React, { FunctionComponent, useState, Fragment, ChangeEvent, useEffect } from 'react';
+import React, { FunctionComponent, Fragment, ChangeEvent, ReactNode } from 'react';
 import { Pie } from 'react-chartjs-2';
 import InputChartData from '../inputChartData/InputChartData';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { replaceChartData } from '../../redux/actions/actions';
 
-const PieChart: FunctionComponent = (props) => {
-  let [chartData, setChartData] = useState([617594, 181045, 153060, 106519]);
-  let [chartColor, setChartColor] = useState(['#fae500', '#CC342D', '#0C4B33', '#878fc2',]);
-  let [chartLabel, setChartLabel] = useState(['JavaScript', 'Ruby', 'Python', 'PHP']);
+const PieChart: FunctionComponent<{chartDataArr: object[], isDataLoaded: boolean, replaceDataChart(data: number, name: string): void}> = (props) => {
+
+  let chartDataChart: number[] = [];
+  let chartColorChart: string[] = [];
+  let chartNameChart: string[] = [];
+  if (props.isDataLoaded) {
+    props.chartDataArr.forEach((lang: any) => {
+      chartDataChart.push(lang.data);
+      chartColorChart.push(lang.color);
+      chartNameChart.push(lang.name);
+    });
+  }
+  
   let data = {
-    labels: chartLabel,
+    labels: chartNameChart,
     datasets: [
       {
         label: 'Lang',
-        data: chartData,
-        backgroundColor: chartColor
+        data: chartDataChart,
+        backgroundColor: chartColorChart
       }
     ]
   };
-  
+
   let changeDataHandler = (event: ChangeEvent<HTMLInputElement>, label: string) => {
-    let valueIndex = chartLabel.indexOf(label);
-    let newData = [...chartData];
-    let value: number;
-    if (event.target.value === '') {
-      value = 0;
-    } else {
-      value = parseInt(event.target.value);
-    }
-    newData.splice(valueIndex, 1, value);
-    setChartData(newData);
+    let valueIndex = chartNameChart.indexOf(label);
+    let data = parseInt(event.target.value);
+    props.replaceDataChart(data, label);
   }
 
   return (
@@ -36,9 +40,9 @@ const PieChart: FunctionComponent = (props) => {
       <Pie data={data}/>
       <ul>
         {
-          chartData.map((value, index) => {
-            let color = chartColor[index];
-            let label = chartLabel[index];
+          chartDataChart.map((value, index) => {
+            let color = chartColorChart[index];
+            let label = chartNameChart[index];
             return (
               <li key={index}>
                 <InputChartData
@@ -56,10 +60,13 @@ const PieChart: FunctionComponent = (props) => {
   );
 }
 
-const mapStateToProps = (state: any): any => {
-  return {
-    chartData: state.chartDataReducer.chartData
-  }
-};
+const mapStateToProps = (state: any) => ({
+  chartDataArr: state.chartDataReducer.chartData,
+  isDataLoaded: state.chartDataReducer.isDataLoaded
+});
 
-export default connect(mapStateToProps)(PieChart);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  replaceDataChart: (data: number, name: string) => dispatch(replaceChartData(data, name))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PieChart);
