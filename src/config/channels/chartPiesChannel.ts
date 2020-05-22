@@ -1,17 +1,20 @@
 import websocketConsumer from '../websocketConsumer';
 import store from '../../redux/store';
 import { 
-  replaceChartData 
+  websocketChartData
 } from '../../redux/actions/actions';
 
 let chartPiesChannel = () => {
   return websocketConsumer.subscriptions.create(
     {
       channel: 'ChartPiesChannel'
-    }, 
+    },
     {
+      connected: () => {
+        console.log('ok');
+      },
       received: (response): void => {
-        store.dispatch(replaceChartData(response.data, response.name));
+        store.dispatch(websocketChartData(response));
       }
     }
   );

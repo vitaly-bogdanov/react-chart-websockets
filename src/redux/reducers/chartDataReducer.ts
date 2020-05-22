@@ -1,6 +1,7 @@
 import { 
   REPLACE_CHART_DATA,
-  LOAD_ALL_CHART_DATA
+  LOAD_ALL_CHART_DATA,
+  WEBSOCKET_CHART_DATA
 } from '../actions/actionTypes';
 import TReplaceChartData from '../../config//abstractions/types/TReplaceChartData';
 import TReducerChartData from '../../config/abstractions/types/TReducerChartData';
@@ -26,27 +27,31 @@ const chartDataReducer = (state = initialState, action: any): any => {
         chartData: action.payload,
         isDataLoaded: true
       }
+    case WEBSOCKET_CHART_DATA:
+      let oldChartData = state.chartData.find((data: any) => data.id === action.payload.id);
+      // @ts-ignore
+      let indexChartDataItem = state.chartData.indexOf(oldChartData);
+      let newChartData = [...state.chartData];
+      // @ts-ignore
+      newChartData[indexChartDataItem] = action.payload;
+      return {
+        ...state,
+        chartData: newChartData
+      }
     case REPLACE_CHART_DATA:
       let chartItem = state.chartData.find((data: any) => data.name == action.payload.label);
       if (chartItem) {
         let chartIndex = state.chartData.indexOf(chartItem);
-
         // @ts-ignore
-        let chartColor = chartItem.color;
-        // @ts-ignore
-        let chartId = chartItem.id;
-
-        let newChartData = state.chartData;
-
-        // @ts-ignore
-        newChartData[chartIndex] = {id: chartId, name: action.payload.label, data: action.payload.data, color: chartColor};
-
+        chartItem.data = action.payload.data;
+        let newChartData = [
+          // @ts-ignore
+          ...state.chartData,
+        ];
+        newChartData[chartIndex] = chartItem;
         return {
           ...state,
-          chartData: [
-            ...state.chartData,
-            newChartData
-          ]
+          chartData: newChartData
         }
       }
       return state;

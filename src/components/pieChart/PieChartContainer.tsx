@@ -4,6 +4,7 @@ import InputChartData from '../inputChartData/InputChartData';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { replaceChartData } from '../../redux/actions/actions';
+import chartPiesChannel from '../../config//channels//chartPiesChannel';
 
 const PieChart: FunctionComponent<{chartDataArr: object[], isDataLoaded: boolean, replaceDataChart(data: number, name: string): void}> = (props) => {
 
@@ -32,7 +33,11 @@ const PieChart: FunctionComponent<{chartDataArr: object[], isDataLoaded: boolean
   let changeDataHandler = (event: ChangeEvent<HTMLInputElement>, label: string) => {
     let valueIndex = chartNameChart.indexOf(label);
     let data = parseInt(event.target.value);
+
     props.replaceDataChart(data, label);
+
+    // передать по вебсокетам на сервак
+    chartPiesChannel.perform('update_chart_data', {label, data});
   }
 
   return (
