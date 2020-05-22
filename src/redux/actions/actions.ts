@@ -1,23 +1,19 @@
-import { 
-  REPLACE_CHART_DATA,
-  LOAD_ALL_CHART_DATA,
-  WEBSOCKET_CHART_DATA 
-} from './actionTypes';
 import TReducerChartData from '../../config/abstractions/types/TReducerChartData';
 import TReplaceChartData from '../../config/abstractions/types/TReplaceChartData';
+import TWebsocketChartData from '../../config/abstractions/types/TWebsocktChartData';
+import TLangData from '../../config/abstractions/types/TLangData';
 
 export const loadAllChartData = (data: object[]): TReducerChartData => ({
-  type: LOAD_ALL_CHART_DATA,
+  type: 'LOAD_ALL_CHART_DATA',
   payload: data
 });
 
 export const replaceChartData = (data: number, label: string): TReplaceChartData => ({
-  type: REPLACE_CHART_DATA,
+  type: 'REPLACE_CHART_DATA',
   payload: { label, data }
 });
 
-// @ts-ignore
-export const websocketChartData = (data): any => ({
-	type: WEBSOCKET_CHART_DATA,
+export const websocketChartData = (data: TLangData ): TWebsocketChartData => ({
+	type: 'WEBSOCKET_CHART_DATA',
 	payload: data
 });
