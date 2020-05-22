@@ -14,6 +14,7 @@ let chartPiesChannel = () => {
         console.log('ok');
       },
       received: (response): void => {
+        console.log(response);
         store.dispatch(websocketChartData(response));
       }
     }

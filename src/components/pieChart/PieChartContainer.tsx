@@ -31,13 +31,12 @@ const PieChart: FunctionComponent<{chartDataArr: object[], isDataLoaded: boolean
   };
 
   let changeDataHandler = (event: ChangeEvent<HTMLInputElement>, label: string) => {
-    let valueIndex = chartNameChart.indexOf(label);
-    let data = parseInt(event.target.value);
-
-    props.replaceDataChart(data, label);
-
+    let dataValue = event.target.value;
+    let chartData: number = dataValue == '' ? 0 : parseInt(dataValue);
+    console.log(chartData);
+    props.replaceDataChart(chartData, label);
     // передать по вебсокетам на сервак
-    chartPiesChannel.perform('update_chart_data', {label, data});
+    chartPiesChannel.perform('update_chart_data', {label, data: chartData});
   }
 
   return (
