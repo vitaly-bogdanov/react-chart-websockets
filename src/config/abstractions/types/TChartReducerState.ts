@@ -1,8 +1,8 @@
 import TLangData from './TLangData';
 
-type TChartReducerInitialState = {
+type TChartReducerState = {
   chartData: TLangData[],
   isDataLoaded: boolean
 }
 
-export default TChartReducerInitialState;
+export default TChartReducerState;

@@ -3,7 +3,7 @@ import TReplaceChartData from '../../config/abstractions/types/TReplaceChartData
 import TWebsocketChartData from '../../config/abstractions/types/TWebsocktChartData';
 import TLangData from '../../config/abstractions/types/TLangData';
 
-export const loadAllChartData = (data: object[]): TReducerChartData => ({
+export const loadAllChartData = (data: TLangData[]): TReducerChartData => ({
   type: 'LOAD_ALL_CHART_DATA',
   payload: data
 });

@@ -1,18 +1,20 @@
-import React, { FunctionComponent, Fragment, ChangeEvent, ReactNode } from 'react';
+import React, { FunctionComponent, Fragment, ChangeEvent } from 'react';
 import { Pie } from 'react-chartjs-2';
 import InputChartData from '../inputChartData/InputChartData';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { replaceChartData } from '../../redux/actions/actions';
-import chartPiesChannel from '../../config//channels//chartPiesChannel';
+import chartPiesChannel from '../../config/channels/chartPiesChannel';
+import TLangData from '../../config/abstractions/types/TLangData';
 
-const PieChart: FunctionComponent<{chartDataArr: object[], isDataLoaded: boolean, replaceDataChart(data: number, name: string): void}> = (props) => {
+const PieChart: FunctionComponent<{chartDataArr: TLangData[], isDataLoaded: boolean, replaceDataChart(data: number, name: string): void}> = (props) => {
 
   let chartDataChart: number[] = [];
   let chartColorChart: string[] = [];
   let chartNameChart: string[] = [];
   if (props.isDataLoaded) {
-    props.chartDataArr.forEach((lang: any) => {
+    props.chartDataArr.forEach((lang: TLangData) => {
+      console.log(lang);
       chartDataChart.push(lang.data);
       chartColorChart.push(lang.color);
       chartNameChart.push(lang.name);
@@ -33,7 +35,6 @@ const PieChart: FunctionComponent<{chartDataArr: object[], isDataLoaded: boolean
   let changeDataHandler = (event: ChangeEvent<HTMLInputElement>, label: string) => {
     let dataValue = event.target.value;
     let chartData: number = dataValue == '' ? 0 : parseInt(dataValue);
-    console.log(chartData);
     props.replaceDataChart(chartData, label);
     // передать по вебсокетам на сервак
     chartPiesChannel.perform('update_chart_data', {label, data: chartData});

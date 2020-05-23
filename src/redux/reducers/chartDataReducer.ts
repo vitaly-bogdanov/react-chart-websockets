@@ -1,21 +1,21 @@
-import TChartReducerInitialState from '../../config/abstractions/types/TChartReducerInitialState';
+import TChartReducerState from '../../config/abstractions/types/TChartReducerState';
+import TLangData from '../../config/abstractions/types/TLangData';
 
-const initialState: TChartReducerInitialState = {
+const initialState: TChartReducerState = {
   chartData: [],
   isDataLoaded: true
 }
 
 /* НЕВЕРОЯТНЫЕ КОСТЫЛИ, ПЕРЕПИСАТЬ */
-const chartDataReducer = (state = initialState, action: any): any => {
+const chartDataReducer = (state = initialState, action: any): TChartReducerState => {
   switch (action.type) {
     case 'LOAD_ALL_CHART_DATA':
       return {
-        ...state,
         chartData: action.payload,
         isDataLoaded: true
       }
     case 'WEBSOCKET_CHART_DATA':
-      let oldChartData = state.chartData.find((data: any) => data.id === action.payload.id);
+      let oldChartData = state.chartData.find((data: TLangData) => data.id === action.payload.id);
       // @ts-ignore
       let indexChartDataItem = state.chartData.indexOf(oldChartData);
       let newChartData = [...state.chartData];
@@ -26,12 +26,12 @@ const chartDataReducer = (state = initialState, action: any): any => {
         chartData: newChartData
       }
     case 'REPLACE_CHART_DATA':
-      let chartItem = state.chartData.find((data: any) => data.name == action.payload.label);
+      let chartItem: TLangData | undefined = state.chartData.find((data: TLangData) => data.name == action.payload.label);
       if (chartItem) {
-        let chartIndex = state.chartData.indexOf(chartItem);
+        let chartIndex: number | undefined = state.chartData.indexOf(chartItem);
         // @ts-ignore
         chartItem.data = action.payload.data;
-        let newChartData = [
+        let newChartData: TLangData[] = [
           // @ts-ignore
           ...state.chartData,
         ];
