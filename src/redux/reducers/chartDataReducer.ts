@@ -26,7 +26,7 @@ const chartDataReducer = (state = initialState, action: any): TChartReducerState
         chartData: newChartData
       }
     case 'REPLACE_CHART_DATA':
-      let chartItem: TLangData | undefined = state.chartData.find((data: TLangData) => data.name == action.payload.label);
+      let chartItem: TLangData | undefined = state.chartData.find((data: TLangData) => data.name === action.payload.label);
       if (chartItem) {
         let chartIndex: number | undefined = state.chartData.indexOf(chartItem);
         // @ts-ignore

@@ -24,6 +24,7 @@ const App: FunctionComponent<{loadChartData(): void}> = props => {
           ) 
         })
       }
+      <Redirect to='/page-not-found'/>
     </Switch>
   );
 }

@@ -4,7 +4,7 @@ import baseUrlServerHelper from './helpers/baseUrlServerHelper';
 
 export const allChartDataApi: Function = (responseCallback: Function, errorCallback?: Function): void => {
   axios({
-    method: <Method>serverApiPath.charts.allChartData.method,
+    method: serverApiPath.charts.allChartData.method as Method,
     url: baseUrlServerHelper(serverApiPath.charts.allChartData.path)
   }).then((response: AxiosResponse) => {
     responseCallback(response);

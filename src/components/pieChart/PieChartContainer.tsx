@@ -14,7 +14,6 @@ const PieChart: FunctionComponent<{chartDataArr: TLangData[], isDataLoaded: bool
   let chartNameChart: string[] = [];
   if (props.isDataLoaded) {
     props.chartDataArr.forEach((lang: TLangData) => {
-      console.log(lang);
       chartDataChart.push(lang.data);
       chartColorChart.push(lang.color);
       chartNameChart.push(lang.name);
@@ -34,7 +33,7 @@ const PieChart: FunctionComponent<{chartDataArr: TLangData[], isDataLoaded: bool
 
   let changeDataHandler = (event: ChangeEvent<HTMLInputElement>, label: string) => {
     let dataValue = event.target.value;
-    let chartData: number = dataValue == '' ? 0 : parseInt(dataValue);
+    let chartData: number = dataValue === '' ? 0 : parseInt(dataValue);
     props.replaceDataChart(chartData, label);
     // передать по вебсокетам на сервак
     chartPiesChannel.perform('update_chart_data', {label, data: chartData});

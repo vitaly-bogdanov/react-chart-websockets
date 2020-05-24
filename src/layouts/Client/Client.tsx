@@ -15,9 +15,7 @@ const Client: React.FC = props => {
       <main className={[classes.Main].join(' ')}>
         {props.children}
       </main>
-      <footer> 
-
-      </footer>
+      <footer></footer>
     </Fragment>
   )
 }
