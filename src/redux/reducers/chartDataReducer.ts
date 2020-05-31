@@ -41,7 +41,7 @@ const chartDataReducer = (state = initialState, action: any): TChartReducerState
           chartData: newChartData
         }
       }
-      return state;
+      // return state;
     default:
       return state;
   }
