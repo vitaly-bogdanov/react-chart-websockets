@@ -1,10 +1,11 @@
-import { ComponentClass } from 'react';
+import { ComponentClass, FunctionComponent } from 'react';
 
 type TRouteInfo = {
   name: string
   path: string
   exact: boolean
-  component: ComponentClass
+  Page: ComponentClass,
+  Layout: FunctionComponent,
   access: { 
     guest: boolean,
     user: boolean,

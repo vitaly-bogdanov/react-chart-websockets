@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import { HomeRoute, ChartRoute } from '../../config/routes';
 import TRouteInfo from '../../config/abstractions/types/TRouteInfo';
 import classes from './client.module.scss';
 
-const Client: React.FC = props => {
+const Client: FunctionComponent = props => {
   let navs: TRouteInfo[] = [HomeRoute,  ChartRoute];
 
   return (

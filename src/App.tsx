@@ -19,7 +19,7 @@ const App: FunctionComponent<{loadChartData(): void}> = props => {
               key={index}
               path={route.path} 
               exact={route.exact}
-              component={route.component}
+              children={() => <route.Layout><route.Page/></route.Layout>}
             />
           ) 
         })

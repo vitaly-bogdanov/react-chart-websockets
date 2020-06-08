@@ -5,11 +5,14 @@ import Chart from '../views/Chart/Chart';
 
 import NotFound from '../views/NotFound/NotFound';
 
+import Client from '../layouts/Client/Client';
+
 export const HomeRoute: TRouteInfo = {
   name: 'Home',
   path: '/',
   exact: true,
-  component: Home,
+  Page: Home,
+  Layout: Client,
   access: {
     guest: true,
     user: true,
@@ -21,7 +24,8 @@ export const ChartRoute: TRouteInfo = {
   name: 'Chart',
   path: '/chart',
   exact: false,
-  component: Chart,
+  Page: Chart,
+  Layout: Client,
   access: {
     guest: true,
     user: true,
@@ -33,7 +37,8 @@ export const NotFoundRoute: TRouteInfo = {
   name: 'Page not found',
   path: '/page-not-found',
   exact: false,
-  component: NotFound,
+  Page: NotFound,
+  Layout: Client,
   access: {
     guest: true,
     user: true,
