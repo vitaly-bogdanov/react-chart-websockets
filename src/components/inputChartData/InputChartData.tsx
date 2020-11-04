@@ -1,6 +1,13 @@
 import React, { FunctionComponent, CSSProperties, ChangeEvent } from 'react';
 
-const InputChartData: FunctionComponent<{label: string, value: number, color: string, changeData(event: ChangeEvent<HTMLInputElement>, label: string): void }> = props => {
+interface Props {
+  label: string,
+  value: number,
+  color: string,
+  changeData(event: ChangeEvent<HTMLInputElement>, label: string): void
+}
+
+const InputChartData: FunctionComponent<Props> = props => {
 
   return (
     <label>

@@ -6,8 +6,20 @@ import { Dispatch } from 'redux';
 import { replaceChartData } from '../../redux/actions/actions';
 import chartPiesChannel from '../../config/channels/chartPiesChannel';
 import TLangData from '../../config/abstractions/types/TLangData';
+import TRootState from '../../config/abstractions/types/TRootState';
 
-const PieChart: FunctionComponent<{chartDataArr: TLangData[], isDataLoaded: boolean, replaceDataChart(data: number, name: string): void}> = (props) => {
+interface IMapStateToProps {
+  chartDataArr: TLangData[]
+  isDataLoaded: boolean
+}
+
+interface IMapDispatchToProps {
+  replaceDataChart(data: number, name: string): void
+}
+
+interface Props extends IMapStateToProps, IMapDispatchToProps {}
+
+const PieChart: FunctionComponent<Props> = props => {
 
   let chartDataChart: number[] = [];
   let chartColorChart: string[] = [];
@@ -64,13 +76,13 @@ const PieChart: FunctionComponent<{chartDataArr: TLangData[], isDataLoaded: bool
   );
 }
 
-const mapStateToProps = (state: any) => ({
-  chartDataArr: state.chartDataReducer.chartData,
-  isDataLoaded: state.chartDataReducer.isDataLoaded
+const mapStateToProps = (state: TRootState): IMapStateToProps => ({
+  chartDataArr: state.chartData.chartData,
+  isDataLoaded: state.chartData.isDataLoaded
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  replaceDataChart: (data: number, name: string) => dispatch(replaceChartData(data, name))
+const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => ({
+  replaceDataChart: (data: number, name: string): void => { dispatch(replaceChartData(data, name)) }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PieChart);

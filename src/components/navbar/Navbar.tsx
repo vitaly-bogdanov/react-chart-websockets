@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { NavLink } from 'react-router-dom';
@@ -6,7 +6,11 @@ import Container from '@material-ui/core/Container';
 import classes from './navbar.module.scss';
 import TRouteInfo from '../../config/abstractions/types/TRouteInfo';
 
-const Navbar: React.FC<{navs: TRouteInfo[]}> = props => {
+interface Props {
+  navs: TRouteInfo[]
+}
+
+const Navbar: FC<Props> = props => {
   return (
     <AppBar color='primary'>
       <Toolbar>
