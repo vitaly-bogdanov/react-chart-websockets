@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { NavLink } from 'react-router-dom';
@@ -16,7 +16,7 @@ const Navbar: FC<Props> = props => {
       <Toolbar>
         <Container maxWidth='md'>
           {
-            props.navs.map((nav, index) => {
+            props.navs.map((nav: TRouteInfo, index: number) => {
               return (
                 <NavLink key={index} className={classes.Link} to={nav.path} exact={nav.exact}>
                   <strong>{nav.name}</strong>

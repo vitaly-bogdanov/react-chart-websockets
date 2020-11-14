@@ -1,13 +1,27 @@
 import TChartReducerState from '../../config/abstractions/types/TChartReducerState';
 import TLangData from '../../config/abstractions/types/TLangData';
+import TAction from '../../config/abstractions/types/TAction';
+import { 
+  REPLACE_CHART_DATA, 
+  LOAD_ALL_CHART_DATA, 
+  WEBSOCKET_CHART_DATA
+} from '../actions/actionTypes';
 
 const initialState: TChartReducerState = {
   chartData: [],
   isDataLoaded: true
 }
 
+interface ITypeAction {
+  type: REPLACE_CHART_DATA | LOAD_ALL_CHART_DATA | WEBSOCKET_CHART_DATA
+}
+
+interface IDataAction {
+
+}
+
 /* НЕВЕРОЯТНЫЕ КОСТЫЛИ, ПЕРЕПИСАТЬ */
-const chartDataReducer = (state = initialState, action: any): TChartReducerState => {
+const chartDataReducer = (state = initialState, action: TAction<ITypeAction, IDataAction>): TChartReducerState => {
   switch (action.type) {
     case 'LOAD_ALL_CHART_DATA':
       return {

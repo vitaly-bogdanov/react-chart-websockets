@@ -50,6 +50,5 @@ it('should replace one chart data in input', () => {
   let action = replaceChartData(newData, langName);
   let newState = chartDataReducer(initialStateWithData, action);
   let newLangData = newState.chartData.find(langData => langData.data === newData && langData.name === langName);
-  expect(newLangData.name).toBe(langName);
-  expect(newLangData.data).toBe(newData);
+  expect(newLangData).toBe({langName, newData});
 });
